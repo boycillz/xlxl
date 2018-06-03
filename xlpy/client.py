@@ -3,6 +3,20 @@ import json
 
 from .config import Config
 
+g = "\033[32;1m"
+gt = "\033[0;32m"
+bt = "\033[34;1m"
+b = "\033[36;1m"
+m = "\033[31;1m"
+mt = "\033[0;31m"
+c = "\033[0m"
+p = "\033[37;1m"
+u = "\033[35;1m"
+M = "\033[3;1m"
+k = "\033[33;1m"
+kt = "\033[0;33m"
+a = "\033[30;1m"
+
 class XL(Config):
 
     _sessionId = ""
@@ -42,9 +56,9 @@ class XL(Config):
             r = requests.post(self.XL_HOST_DOMAIN + self.XL_OTPRQ_QUERY_PATH, json=payload, headers=self.headers, verify=False)
         status = json.loads(r.content)
         if(len(status) == 3):
-            if ("LoginSendOTPRs" in status): return {"message" : "Successfully get OTP"}
+            if ("LoginSendOTPRs" in status): return {"message" : "\033[1;33m["+p+"-"+k+"] "+g+"Successfully get OTP"}
             else: return {"message" : status['message']}
-        if(len(status) == 1): return {"message" : "Failed get OTP"}
+        if(len(status) == 1): return {"message" : "\033[1;33m["+p+"!"+k+"] "+m+"Failed get OTP"}
     
     def reqPassword(self):
         payload = {
@@ -137,7 +151,7 @@ class XL(Config):
                 
                 "XBOXRequest" : {
                     "requestName" : "GetSubscriberMenuId",
-                    "Subscriber_Number" : "2099690413",
+                    "Subscriber_Number" : "1934551194",
                     "Source" : "mapps",
                     "PayCat" : "PRE-PAID",
                     "Rembal" : "0",
@@ -166,5 +180,5 @@ class XL(Config):
         except:
             r = requests.post(self.XL_HOST_DOMAIN + self.XL_PURCHASEPKG_QUERY_PATH, json=payload, headers=self.headers, verify=False)
         status = json.loads(r.content)
-        if(len(status) == 4): return {"message" : "Successfully purchased the package"}
-        else: return {"message" : status['message']}
+        if(len(status) == 4): return {"message" : "\033[1;33m["+p+"-"+k+"] "+g+"Successfully purchased the package"}
+        else: return {m+"message" : status['message']}
